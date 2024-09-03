@@ -15,7 +15,7 @@ plt.rcParams["text.usetex"] = True
 matplotlib.rcParams["text.latex.preamble"] = r"\usepackage{times}"
 
 
-def generate_and_save_data(num_experiments=10000):
+def generate_and_save_data(num_experiments=1000):
     # ... [Keep the data generation code from the previous version] ...
     def generate_random_rotation_matrix(size):
         """Generate a random rotation matrix of given size."""
@@ -40,7 +40,7 @@ def generate_and_save_data(num_experiments=10000):
     low_rank_range = range(5, 26)  # Rank range from 5 to 25
     num_matrices = 10  # Number of matrices to generate in sets A1 and A2
     sigma = 0.0001  # Noise level for Gaussian perturbation
-    num_experiments = 10000  # Number of experiments to perform
+    # num_experiments = 10000  # Number of experiments to perform
 
     # Generate sets A1 (rotation matrices) and A2 (scaling matrices)
     A1 = [generate_random_rotation_matrix(matrix_size) for _ in range(num_matrices)]
@@ -130,7 +130,10 @@ def plot_heatmap(data, cmap, output_filename):
 if __name__ == "__main__":
     import time
     # Uncomment the following line if you need to generate new data
-    # generate_and_save_data()
+    tick = time.time()
+    generate_and_save_data()
+    tock = time.time()
+    print(f"Time taken to generate data: {tock - tick:.2f} seconds")
 
     tick = time.time()
     # Read the data
