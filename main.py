@@ -15,6 +15,9 @@ plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams["text.usetex"] = True
 matplotlib.rcParams["text.latex.preamble"] = r"\usepackage{times}"
 
+# Global font size variable
+FONT_SIZE = 26
+
 
 def generate_random_rotation_matrix(size):
     Q, _ = np.linalg.qr(np.random.randn(size, size))
@@ -102,17 +105,26 @@ def plot_heatmap(data, cmap, output_filename, variance, title):
         ax=ax,
     )
 
+    # Set font size for all text elements
+    cbar = ax.collections[0].colorbar
+    cbar.ax.tick_params(labelsize=FONT_SIZE)  # Colorbar tick labels
+    cbar.set_label("Frequency", fontsize=FONT_SIZE)  # Colorbar label
+
     ax.set_aspect("equal")
     ax.invert_yaxis()
-    ax.set_xlabel(r"Number of ellipses ($\beta$)", fontsize=12)
-    ax.set_ylabel(r"$k$ (scaled by 1.4)", fontsize=12)
+    ax.set_xlabel(r"Number of ellipses ($\beta$)", fontsize=FONT_SIZE)
+    ax.set_ylabel(r"$k$ (scaled by 1.4)", fontsize=FONT_SIZE)
+
+    # Adjust tick font sizes for x and y axes
+    ax.tick_params(axis="x", labelsize=FONT_SIZE)  # X-axis tick font size
+    ax.tick_params(axis="y", labelsize=FONT_SIZE)  # Y-axis tick font size
 
     # Adding only the red y=x line
-    ax.plot([0, 30], [0, 30], "r-", label=r"$$k = \beta$$")
+    ax.plot([0, 30], [0, 30], "r-", label=r"$k = \beta$")
 
-    ax.legend(fontsize=10)
+    ax.legend(fontsize=FONT_SIZE)
 
-    plt.title(title, fontsize=14)
+    plt.title(title, fontsize=FONT_SIZE)
     plt.tight_layout()
     plt.savefig(output_filename, dpi=600, bbox_inches="tight")
     print(f"Figure saved as {output_filename}")
